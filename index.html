@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>To-Do List</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f4f4f4;
+        }
+
+        .todo-container {
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            width: 300px;
+            text-align: center;
+        }
+
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        li {
+            padding: 8px;
+            background-color: #f9f9f9;
+            margin-bottom: 5px;
+            display: flex;
+            align-items: center;
+        }
+
+        button {
+            margin-left: 10px;
+            background-color: red;
+            color: white;
+            border: none;
+            padding: 5px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: darkred;
+        }
+
+        input[type="text"] {
+            padding: 10px;
+            width: 75%;
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="todo-container">
+        <h2>My To-Do List</h2>
+        <ul id="todo-list"></ul>
+        <input type="text" id="new-task" placeholder="Add new task...">
+        <button id="add-task-btn">Add Task</button>
+    </div>
+
+    <script>
+    // Getting elements
+const todoList = document.getElementById('todo-list');
+const taskInput = document.getElementById('new-task');
+const addButton = document.getElementById('add-task-btn');
+
+// Function to add a task to the list
+function addTask() {
+    const taskText = taskInput.value.trim(); // Remove extra spaces
+
+    // Check if the task is not empty
+    if (taskText !== '') {
+        const li = document.createElement('li'); // Create a new list item
+        li.textContent = taskText; // Set the task text
+        
+        // Add the new task to the list
+        todoList.appendChild(li);
+
+        // Create a delete button for the task
+        const deleteButton = document.createElement('button');
+        deleteButton.textContent = 'Delete';
+        
+        // Delete task when button is clicked
+        deleteButton.onclick = function() {
+            li.remove();
+        };
+
+        // Add the delete button to the list item
+        li.appendChild(deleteButton);
+
+        // Clear the input field
+        taskInput.value = '';
+    }
+}
+
+// Event listener for Add Task button
+addButton.addEventListener('click', addTask);
+
+// Allow pressing "Enter" to add task as well
+taskInput.addEventListener('keypress', function(event) {
+    if (event.key === 'Enter') {
+        addTask();
+    }
+});
+
+    </script>
+</body>
+
+</html>
